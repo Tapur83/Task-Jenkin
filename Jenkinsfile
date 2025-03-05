@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        SOURCE_CODE_DIR = 'E:\SEMESTER-4\Professioal Development\jenkins' 
+        SOURCE_CODE_DIR = 'SEMESTER-4/Professioal Development/jenkins' 
         TEST_ENV = 'stages'         
         PROD_ENV = 'tapur'     
     }
