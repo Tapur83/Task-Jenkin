@@ -2,16 +2,18 @@ pipeline {
     agent any
 
     environment {
-        SOURCE_CODE_DIR = 'SEMESTER-4/Professioal Development/jenkins' 
-        TEST_ENV = 'stages'         
-        PROD_ENV = 'tapur'     
+        DIRECTORY_PATH = "/path/to/source/code"
+        TESTING_ENVIRONMENT = "Netlify"
+        PRODUCTION_ENVIRONMENT = "Akshit Goyal"
     }
 
     stages {
         stage('Build') {
             steps {
-                echo "Fetch the source code from the directory path specified by the environment variable: ${env.SOURCE_CODE_DIR}"
-                echo "Compile the code and generate any necessary artifacts"
+                echo "Fetching the source code from ${DIRECTORY_PATH}"
+                echo "Compiling the code and generating artifacts"
+                echo "hello"
+                echo "what"
             }
         }
 
@@ -20,31 +22,53 @@ pipeline {
                 echo "Running unit tests"
                 echo "Running integration tests"
             }
+            post {
+                success {
+                    mail(to: "tapur4828.be23@chitkara.edu.in",
+                         subject: "Test Stage Completed",
+                         body: "The Test stage has completed. Check logs for details.")
+                }
+            }
         }
 
         stage('Code Quality Check') {
             steps {
-                echo "Check the quality of the code"
+                echo "Performing code quality check"
+                echo "Done"
+            }
+        }
+
+        stage('Security Scan') {
+            steps {
+                echo "Performing security scan on the code"
+                echo "Identifying vulnerabilities (simulated)"
+                echo "Security scan completed"
+            }
+            post {
+                always {
+                    mail(to: "tapur4828.be23@chitkara.edu.in",
+                         subject: "Security Scan Completed",
+                         body: "The Security Scan stage has completed. Check logs for details.")
+                }
             }
         }
 
         stage('Deploy') {
             steps {
-                echo "Deploy the application to a testing environment specified by the environment variable: ${env.TEST_ENV}"
+                echo "Deploying the application to ${TESTING_ENVIRONMENT}"
             }
         }
 
         stage('Approval') {
             steps {
-                echo "Waiting for manual approval..."
-                sleep 10 // Simulate a 10-second pause for manual approval
-                echo "Approval received, continuing pipeline."
+                echo "Waiting for approval..."
+                sleep(time: 10, unit: 'SECONDS')
             }
         }
 
         stage('Deploy to Production') {
             steps {
-                echo "Deploy the code to the production environment specified by the environment variable: ${env.PROD_ENV}"
+                echo "Deploying the application to ${PRODUCTION_ENVIRONMENT}"
             }
         }
     }
