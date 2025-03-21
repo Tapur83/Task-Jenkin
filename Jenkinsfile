@@ -14,7 +14,7 @@ pipeline {
                 echo "Fetching the source code from ${DIRECTORY_PATH}"
                 echo "Compiling the code and generating artifacts"
                 echo "Build stage completed successfully!"
-                echo "hi!"
+                
             }
         }
 
